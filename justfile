@@ -6,3 +6,9 @@ install-ubuntu:
 rustup:
     rustup component add rustc-codegen-cranelift-preview --toolchain nightly
     rustup component add rust-analyzer
+
+run:
+    cargo run
+
+release:
+    cargo run --release
