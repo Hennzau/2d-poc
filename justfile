@@ -12,3 +12,6 @@ run:
 
 release:
     cargo run --release
+
+pong:
+    cargo run --example pong
