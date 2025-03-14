@@ -61,6 +61,7 @@ fn main() {
             EditPlugin,
         ))
         .init_state::<GameState>()
+        .insert_resource(ClearColor(Color::BLACK))
         .add_systems(Startup, setup)
         .run();
 }

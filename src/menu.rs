@@ -1,21 +1,21 @@
 use bevy::prelude::*;
 
-use crate::{GameState, LevelID, SelectLevelMode};
+use crate::{GameState, SelectLevelMode};
 
-#[derive(Component)]
-struct MainMenuEntity;
+mod main;
+use main::{MainMenuEntity, setup_main_menu};
 
-#[derive(Component)]
-struct SettingsMenuEntity;
+mod settings;
+use settings::{SettingsMenuEntity, setup_settings_menu};
 
-#[derive(Component)]
-struct CreditsMenuEntity;
+mod credits;
+use credits::{CreditsMenuEntity, setup_credits_menu};
 
-#[derive(Component)]
-struct VictoryMenuEntity;
+mod victory;
+use victory::{VictoryMenuEntity, setup_victory_menu};
 
-#[derive(Component)]
-struct SelectLevelMenuEntity;
+mod select_level;
+use select_level::{SelectLevelMenuEntity, setup_select_level_menu};
 
 pub struct MenuPlugin;
 
@@ -58,36 +58,6 @@ impl Plugin for MenuPlugin {
                 despawn_on_exit::<SelectLevelMenuEntity>,
             );
     }
-}
-
-fn setup_main_menu(mut commands: Commands, asset_server: Res<AssetServer>) {
-    let mut screen = commands.spawn((MainMenuEntity,));
-}
-
-fn setup_settings_menu(mut commands: Commands, asset_server: Res<AssetServer>) {
-    let mut screen = commands.spawn((SettingsMenuEntity,));
-}
-
-fn setup_credits_menu(mut commands: Commands, asset_server: Res<AssetServer>) {
-    let mut screen = commands.spawn((CreditsMenuEntity,));
-}
-
-fn setup_victory_menu(mut commands: Commands, asset_server: Res<AssetServer>) {
-    let mut screen = commands.spawn((VictoryMenuEntity,));
-}
-
-fn setup_select_level_menu(
-    current_state: Res<State<GameState>>,
-    mut commands: Commands,
-    asset_server: Res<AssetServer>,
-) {
-    // Get the mode to know where the transition should happen after selecting a level
-    let select_level_mode = match current_state.get() {
-        GameState::SelectLevelMenu(mode) => mode.clone(),
-        _ => panic!("Unexpected game state"),
-    };
-
-    let mut screen = commands.spawn((SelectLevelMenuEntity,));
 }
 
 pub fn despawn_on_exit<T: Component>(mut commands: Commands, entities: Query<Entity, With<T>>) {
